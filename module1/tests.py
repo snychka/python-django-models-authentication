@@ -122,27 +122,26 @@ Call `admin.site.register()` with `User` and `UserAdmin` as parameters."""
 
         routes = node.value.elts
         for entry in routes:
-            print('Stefan: ' + str(entry.args[1].keywords[0].value.s))
             if (entry.func.id == 'path' and 
-                entry.args[0].s == 'login/' and 
+                entry.args[0].value == 'login/' and 
                 entry.args[1].func.value.value.id == 'auth_views' and 
                 entry.args[1].func.value.attr == 'LoginView' and 
                 entry.args[1].func.attr == 'as_view' and 
                 entry.args[1].keywords[0].arg == 'template_name' and 
-                entry.args[1].keywords[0].value.s == 'login.html' and 
+                entry.args[1].keywords[0].value.value == 'login.html' and 
                 entry.keywords[0].arg == 'name' and 
-                entry.keywords[0].value.s== 'login' ):
+                entry.keywords[0].value.value == 'login' ):
                 """path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),"""
                 login_path_found = True
             elif (entry.func.id == 'path' and 
-                entry.args[0].s == 'logout/' and 
+                entry.args[0].value == 'logout/' and 
                 entry.args[1].func.value.value.id == 'auth_views' and 
                 entry.args[1].func.value.attr == 'LogoutView' and 
                 entry.args[1].func.attr == 'as_view' and 
                 entry.args[1].keywords[0].arg == 'next_page' and 
-                entry.args[1].keywords[0].value.s == 'index' and 
+                entry.args[1].keywords[0].value.value == 'index' and 
                 entry.keywords[0].arg == 'name' and 
-                entry.keywords[0].value.s == 'logout' ):
+                entry.keywords[0].value.value == 'logout' ):
                 """    path('logout/', auth_views.LogoutView.as_view(next_page='index' ), name='logout'),"""
                 logout_path_found = True
         return login_path_found, logout_path_found
